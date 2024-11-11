@@ -17,7 +17,7 @@ public class App {
         EntityManager em = emf.createEntityManager();
         em.getTransaction().begin();
 
-        // Instantiation d'objets de type Petstore.
+        //Instanciationd'objets de type Petstore.
         PetStore parisStore = new PetStore("Au Paradis des Pattes", "Phlippe");
         PetStore lyonStore = new PetStore("Félin Pour L'Autre", "Jean Philippe");
         PetStore marseilleStore = new PetStore("Anima Life", "Martin");
@@ -32,7 +32,7 @@ public class App {
         lyonStore.addAdresse(adreseeLyon);
         parisStore.addAdresse(adresseParis);
 
-        //Instantiation d'objet de type Animal avec des types spécifiques (Fish et Cat)
+        //Instanciation d'objet de type Animal avec des types spécifiques (Fish et Cat)
         Animal RedFish = new Fish(LocalDate.now(),"Red", parisStore, FishLivEnv.FRESH_WATER );
         Animal  siameseCat = new Cat(LocalDate.now(), "Cream", lyonStore, "002356");
         Animal  clownfish = new Fish (LocalDate.now(), "orange", marseilleStore, FishLivEnv.SEA_WATER);
@@ -42,7 +42,7 @@ public class App {
         parisStore.addAnimal(siameseCat);
         lyonStore.addAnimal(clownfish);
 
-        //Instantiation d'objets de type Product.
+        //Instanciation d'objets de type Product.
         Product fishFood = new Product("FF0321", "Tropical Fish Flakes", ProdType.FOOD, 15.99 );
         Product catFood = new Product("CF123", "Almo Salamon", ProdType.FOOD, 45.86);
         Product aquariumCleaner = new Product("AC456", "Aquarium Gravel Cleaner", ProdType.CLEANING, 39.99);

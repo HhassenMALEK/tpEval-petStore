@@ -7,28 +7,76 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * représente un produit de type Product.
+ * Entité JPA liée a la table PRODUCT en BDD.
+ *
+ * author Hassen MALEK
+ */
 @Entity
 @Table(name="PRODUCT")
 public class Product implements Serializable {
+
+    /**
+     * Identifiant unique du Produit,
+     * généré automatiquement par la BDD.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
     private Long id;
+
+    /**
+     * code du produit.
+     */
     @Column(name="CODE")
     private  String code;
+
+    /**
+     * labes du produit
+     */
     @Column(name="LABEL")
     private String label ;
+
+    /**
+     * type de produit
+     */
     @Column(name="TYPE")
     private ProdType type;
+
+    /**
+     * prix du produit
+     */
     @Column(name="PRICE")
     private double price;
+
+    /**
+     *Liste des magasins où le produit est en stock.
+     * relation Many-To-Many avec PetStore.
+     */
     @ManyToMany(mappedBy = "products" )
     private Set<PetStore> petStores;
 
+    /**
+     * Liste des magasins ou le produit est en stock.
+     * Chaque animal et produit ne peut être présent qu'une seule fois.
+     */
     {
         petStores = new HashSet<>();
     }
+
+    /**
+     * Constructeur par défaut requis par JPA.
+     */
     public Product() {}
+
+    /**
+     * Instancier un nouveau produit.
+     * @param code
+     * @param label
+     * @param type
+     * @param price
+     */
     public Product(String code, String label, ProdType type, double price) {
         this.code = code;
         this.label = label;
@@ -144,6 +192,11 @@ public class Product implements Serializable {
         this.petStores = petStores;
     }
 
+    /**
+     *Méthode toString pour représenter les informations d'un produit.
+     *
+     * @return String
+     */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Product{");

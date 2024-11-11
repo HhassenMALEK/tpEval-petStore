@@ -5,62 +5,131 @@ import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Représente un magasin de type PetStore.
+ * Entité JPA liée à la table PETSTORE en BDD.
+ *
+ * @author Hassen MALEK
+ */
+
 @Entity@Table(name="PETSTORE")
 public class PetStore {
+
+    /**
+     * Identifiant unique du magasin,
+     * généré automatiquement par la BDD.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="ID")
     private Long id;
+
+    /**
+     * Nom du magasin.
+     */
     @Column(name="NAME")
     private String name;
+
+    /**
+     * nom du manager du magasin.
+     */
     @Column(name="MANAGER_NAME")
     private String managerName;
+
+    /*
+    * Adresse du magasin
+    * relation One-To-One avec Adresse.
+    */
+    @OneToOne(mappedBy = "petStore", cascade = CascadeType.PERSIST)
+    private Adresse adresse;
+
+    /**
+     * Liste des produits disponibles dans le magasin.
+     * Relation Many-To-Many avec la classe Product.
+     */
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="PRODUCT_PETSTORE",
     joinColumns= @JoinColumn(name="PETSTORE_ID", referencedColumnName="ID"),
     inverseJoinColumns = @JoinColumn(name="PRODUCT_ID", referencedColumnName = "ID"))
     private Set<Product> products;
+
+    /**
+     *  Liste des animaux présents dans le magasin.
+     *  relation One-TO-Many avec Animal.
+     */
     @OneToMany(mappedBy = "petStore", cascade = CascadeType.PERSIST)
     private Set<Animal> animals;
-    @OneToOne(mappedBy = "petStore", cascade = CascadeType.PERSIST)
-    private Adresse adresse;
 
+    /**
+     * Liste des animaux et produits en stock.
+     * Chaque animal et produit ne peut être présent qu'une seule fois.
+     */
     {
         products = new HashSet<>();
         animals = new HashSet<>();
     }
 
+    /**
+     * Constructeur par défaut requis par JPA.
+     */
     public PetStore() {}
 
+    /**
+     * Instancier un nouveau PetStore.
+     * @param name
+     * @param managerName
+     */
     public PetStore(String name, String managerName) {
         this.name = name;
         this.managerName = managerName;
     }
+
+    /**
+     * Associe une adresse au magasin
+     * @param adresse nouvelle adresse à associer
+     */
     public void addAdresse(Adresse adresse){
         if(adresse != null){
             this.adresse = adresse;
-            adresse.setPetstore(this);
+            adresse.setPetStore(this);
         }
     }
 
+    /**
+     * Ajoute un animal au magasin
+     * @param animal nouvel animal à associer
+     */
     public void addAnimal(Animal animal){
         if(animal != null){
             animals.add(animal);
             animal.setPetStore(this);
         }
     }
-
+    /**
+     * Retire un animal du magasin
+     * @param animal nimal à retirer
+     */
     public void remouveAnimal(Animal animal){
         if(animal != null){
             this.getAnimals().remove(animal);
         }
     }
+
+    /**
+     * Ajoute un produit au magasin
+     * @param product nouveau prodiut à ajouter
+     */
     public void addProduct(Product product){
         if(product != null){
             this.products.add(product);
 
         }
     }
+
+    /**
+     * retire un produit du magasin
+     * @param product prioduit à retirer
+     */
     public void removeProduct(Product product){
         if(product != null){
             this.getProducts().remove(product);
@@ -176,6 +245,12 @@ public class PetStore {
         this.adresse = adresse;
     }
 
+
+    /**
+    *Méthode toString pour représenter les informations d'un magasin.
+    *
+    * @return String
+    */
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("PetStore{");
@@ -188,6 +263,4 @@ public class PetStore {
         sb.append('}');
         return sb.toString();
     }
-
-
 }
