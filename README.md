@@ -1,55 +1,57 @@
-# PetStore
+# PetStore - Gestion de Magasin d'Animaux de Compagnie
 
-## Description
-
-Le **PetStore** est une application de gestion d'un magasin d'animaux de compagnie des produits au sein d'un magasin. Elle permet de gérer les informations relatives aux magasins, aux animaux, et aux produits disponibles. Ce système est conçu pour permettre aux utilisateurs de :
+PetStore est une application de gestion d'un magasin d'animaux de compagnie. Elle permet de gérer les informations relatives aux magasins, aux animaux, et aux produits disponibles. Ce système est conçu pour permettre aux utilisateurs de :
 
 - Gérer les magasins d'animaux.
 - Ajouter, supprimer et visualiser les animaux et produits disponibles dans chaque magasin.
 - Maintenir les relations entre les magasins, les animaux et les produits.
 
-Le projet utilise **JPA** (Jakarta Persistence API) pour la gestion des entités et interagit avec une base de données relationnelle via **Hibernate**. Le tout est structuré autour d'un modèle orienté objets, facilitant la gestion et l'interaction avec les données persistantes.
+Le projet utilise **JPA** (Jakarta Persistence API) pour la gestion des entités et interagit avec une base de données relationnelle via **Hibernate**. Pour la base de données, j'ai utilisé **MariaDB**.
 
 ## Fonctionnalités
 
-### Gestion des magasins (PetStore)
--creer des magasins
-- Associer un magasin avec une adresse.
+### 1. Gestion des magasins
+- Créer des magasins.
+- Associer un magasin à une adresse.
 - Lier des magasins à des animaux et des produits disponibles.
 
-### Gestion des animaux
+### 2. Gestion des animaux
 - Ajouter et supprimer des animaux dans un magasin.
 - Gérer différents types d'animaux (poissons, chats, etc.).
 - Suivi des informations liées à chaque animal (identifiant, couleur, etc.).
 
-### Gestion des produits
+### 3. Gestion des produits
 - Ajouter et supprimer des produits dans un magasin.
 - Gérer les différents types de produits (alimentation, accessoires, nettoyage).
-  
-### Relations entre magasins, animaux et produits
+
+### 4. Relations entre magasins, animaux et produits
 - Associer chaque animal et produit à un magasin spécifique.
 - Garantir la cohérence entre les entités via les relations définies dans la base de données (par exemple, `OneToMany` et `ManyToMany`).
+
+## Technologies Utilisées
+
+- **Java** : Langage principal de développement.
+- **JPA (Jakarta Persistence API)** : Gestion de la persistance des données.
+- **Hibernate** : Framework pour l'interaction avec la base de données relationnelle.
+- **MariaDB** : Base de données relationnelle.
+- **Maven** : Gestion des dépendances et construction du projet.
 
 ## Structure du Projet
 
 ### Packages Principaux
 
-- **`fr.diginamic.business`** : Ce package contient les classes principales de l'application, telles que `PetStore`, `Animal`, `Fish`, `Cat`, et `Product`, qui gèrent les relations entre les magasins, les animaux et les produits.
-  
-- **`fr.diginamic.enums`** : Ce package définit les énumérations utilisées dans l'application, telles que `ProdType` pour les types de produits et `FishLivEnv` pour les environnements de vie des poissons.
+- **`fr.diginamic.business`** : Contient les classes principales de l'application : `PetStore`, `Adresse`, `Animal`, `Fish`, `Cat`, et `Product`.
+- **`fr.diginamic.enums`** : Définit les énumérations utilisées dans l'application : `ProdType` (types de produits) et `FishLivEnv` (environnements de vie des poissons).
 
 ### Entités Principales
 
-- **PetStore** : Représente un magasin d'animaux. Ce magasin peut contenir une collection d'animaux et de produits. Il permet de gérer les animaux et produits disponibles dans un magasin spécifique.
-  
-- **Animal** : Classe représentant un animal. Elle dispose de sous-classes comme `Fish` (poisson) et `Cat` (chat). Chaque animal a des attributs spécifiques, comme un identifiant de puce (pour les chats) ou un environnement de vie (pour les poissons).
-  
-- **Product** : Représente un produit disponible dans un magasin. Il peut être classé en plusieurs types, comme les aliments, les accessoires ou les produits de nettoyage, grâce à l'énumération `ProdType`.
+- **PetStore** : Représente un magasin d'animaux avec une collection d'animaux et de produits.
+- **Animal** : Classe de base représentant un animal, avec des sous-classes comme `Fish` et `Cat`.
+- **Product** : Représente un produit disponible dans un magasin, classé en types (alimentation, accessoires, nettoyage).
 
 ### Enumérations
 
-- **FishLivEnv** : Enumération qui définit les types d'environnements de vie des poissons (par exemple, `FRESH_WATER` pour l'eau douce et `SEA_WATER` pour l'eau de mer).
-  
+- **FishLivEnv** : Enumération qui définit les types d'environnements de vie des poissons (par exemple, `FRESH_WATER` et `SEA_WATER`).
 - **ProdType** : Enumération qui définit les types de produits disponibles dans le magasin (par exemple, `FOOD`, `ACCESSORY`, `CLEANING`).
 
 ## Exemple d'Utilisation
